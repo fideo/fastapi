@@ -34,7 +34,7 @@ def create_movie( movie: MovieCreate ) -> List[Movie]:
     return JSONResponse(content=content, status_code=201)
     # return RedirectResponse(url='/movies', status_code=303)
 
-@movie_router.put("/id}", tags=["Movies"])
+@movie_router.put("/{id}", tags=["Movies"])
 def update_movie(id: int, movie: MovieUpdate) -> List[Movie]:
     for item in movies:
         if item.id == id:
@@ -46,7 +46,7 @@ def update_movie(id: int, movie: MovieUpdate) -> List[Movie]:
     content = [movie.model_dump() for movie in movies]
     return JSONResponse(content=content, status_code=200)
 
-@movie_router.delete("/id}", tags=["Movies"])
+@movie_router.delete("/{id}", tags=["Movies"])
 def delete_movie(id: int) -> List[Movie]:
     for movie in movies:
         if movie.id == id:
@@ -55,5 +55,5 @@ def delete_movie(id: int) -> List[Movie]:
     return JSONResponse(content=content, status_code=200)
 
 @movie_router.get("/get_file", tags=["Movies"])
-def get_file():
+async def get_file():
     return FileResponse('file.txt')
